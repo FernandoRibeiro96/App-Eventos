@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/facebook"
+        android:title="Facebook"
+        android:icon="@drawable/facebook"/>
+
+    <item
+        android:id="@+id/gmail"
+        android:title="Gmail"
+        android:icon="@drawable/gmail"/>
+
+    <item
+        android:id="@+id/instagram"
+        android:title="Instagram"
+        android:icon="@drawable/instagram"/>
+
+    <item
+        android:id="@+id/twitter"
+        android:title="Twitter"
+        android:icon="@drawable/twitter"/>
+
+</menu>

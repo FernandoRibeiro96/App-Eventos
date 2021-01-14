@@ -4,12 +4,19 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.1"
 
+    testOptions {
+        unitTests.includeAndroidResources = true
+    }
+
     defaultConfig {
         applicationId "com.example.eventos"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+
+        testApplicationId "com.myapp.test"
+        testInstrumentationRunner "android.test.InstrumentationTestRunner"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -66,7 +73,8 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.6.2'
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
 
-    implementation 'com.cocosw:bottomsheet:1.+@aar'
-    implementation 'com.cocosw:query:0.2.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.3.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
 
 }

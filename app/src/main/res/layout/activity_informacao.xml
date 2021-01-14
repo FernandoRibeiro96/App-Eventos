@@ -2,6 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
+    android:background="@color/darkBlue"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -15,7 +16,7 @@
             android:layout_height="match_parent"
             android:id="@+id/collapsinId"
             app:layout_scrollFlags="exitUntilCollapsed|scroll"
-            android:background="@color/colorAccent"
+            android:background="@color/darkBlue"
             app:title="Event title"
             app:expandedTitleMarginStart="48dp"
             app:expandedTitleMarginEnd="64dp">
@@ -40,7 +41,7 @@
                             android:id="@+id/pp_pictureId"
                             android:scaleType="fitXY"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent" />
+                            android:layout_height="match_parent"/>
 
                     </RelativeLayout>
                 </androidx.cardview.widget.CardView>
@@ -58,24 +59,64 @@
         android:layout_margin="16dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <TextView
-            android:text="Descrição evento"
+
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="50dp"
-            android:id="@+id/descricaoID"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="title"
+                android:textColor="@color/white"
+                android:id="@+id/tttleId"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="data release"
+                android:textColor="@color/white"
+                android:layout_below="@+id/tttleId"
+                android:layout_marginTop="8dp"
+                android:id="@+id/ddata_release"/>
+            <TextView
+                android:text="Descrição evento"
+                android:textColor="@color/white"
+                android:layout_below="@id/ddata_release"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:id="@+id/overviewID"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/tttleId"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@id/vvote_averageId"
+                android:background="@drawable/ic_baseline_star_24" />
+
+            <TextView
+                android:id="@+id/vvote_averageId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:textSize="15dp"
+                android:layout_alignBaseline="@id/tttleId"
+                android:layout_alignParentRight="true"
+                android:text="vote_average"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+
+
+
 
     </androidx.core.widget.NestedScrollView>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/navigationView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/windowBackground"
-        app:itemBackground="@color/colorAccent"
-        app:itemIconTint="@color/white"
-        app:itemTextColor="@color/white"
-        app:menu="@menu/navigation"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

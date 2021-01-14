@@ -1,8 +1,12 @@
-# App-Eventos 
-Foram ultilizadas ass dependencias do Gson  para poder fazer uso das informaç que continham no arquivo json, a do Volley para poder fazer consumo de serviços da  API da internet, o glide para poder pegar as imagens,  CircleMenu para poder fazer o evento de animação da activityMenu ,CircleImageView para deixar uma imagem redonda, MaterialDesignDialog para poder fazer as caixas de dialogo, RecyclerView para setar as informaçõe do arquivo json, CardView para o layout e o bottomSheet para criaçaõ de um bottom dialog. Foram feitas o uso de todas essa dependencias para a criação do app.
-Foram feitos testes em algumas telas diferentes de dispositivos android para poder garantir que a aplicação estara funcionando em diversos dispositivos que ele for instalado e testatd.
-No aplicativo foi criado uma tela de menu para que apartir dela o usuario possa ter acesso aos eventos e também que ele possa sair do aplicativo,foi criado um lista com todos os eventos que estavam dispo contendo o titulo do evento, o valor e a imagem do evento, foi criado uma activity conforme o usuario clicasse em um evento ele iri ser direcionado para uma outra actitivity contento as informações do evento, os participantes, o check-in e a possibilidade de fazer o compartilhamento do evento com outras pessoas.
-Na activity de informações do evento contem opções onde se clicar em participantes você poderar ver todas as pessoas que estão cadastra naquele evento.
-Se clicado em compartilhamento, aparecerar opções de compartilhamentos com outras pessoas atraves de outras plataformas digitais, para que possa ter uma maior abrangencia, mais tbm que ele possa compartilhar entre amigos. Mas não foi possivel fazer implementação pois a URl do compartilhamento estava fora do ar.
-E se clicado em check-in o usuario podera confirmar a  sua presença no evento de seu interesse.
-Gostei da ideia do aplicativo, gostaria de poder ter mais tempo para poder trabalhar mais com ele, como o tempo não permitiu isto, fiz o maximo de funcionalidade no aplicativo que pude, poderia fazer melhor se tivesse um pouco mais tempo.
+# Movies
+Foram ultilizadas as dependencias do Gson  para poder fazer uso das informações que continham no arquivo json,
+para isso, foi utilizada a biblioteca Volley para poder fazer consumo de serviços da  API da internet,
+foi usado o glide para poder pegar as imagens,
+MaterialDesignDialog para poder fazer uso das caixas de dialogo,
+RecyclerView para setar as informaçõe do arquivo json, CardView para o layout.
+Foram feitas o uso de todas essas dependencias para a criação do app.
+Foram feitos testes em algumas telas em diferentes dispositivos android para poder garantir que a aplicação estara funcionando
+em diversos dispositivos em que ele for instalado e testado.
+Foram criadas duas telas no desenvolvimento do aplicativo, uma tela com o recyclerView para poder setar as informações que foram
+retiradas do json, no caso pra fazer a listagem dos filmes e o usuario poder clicar e passar para a segunda tela para poder ver a sinopse do filme.
+Fiz uso de um repositorio de um projeto antigo meu no git, que eu mesmo estava desenvolvendo, então senti a liberdade de poder fazer o uso de tal pra desenvolvimento desta atividade.

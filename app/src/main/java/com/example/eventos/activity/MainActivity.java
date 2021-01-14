@@ -1,37 +1,35 @@
 package com.example.eventos.activity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.eventos.R;
 import com.example.eventos.adapter.RecyclerViewAdapter;
-import com.example.eventos.model.Eventos;
-import com.example.eventos.model.Pessoa;
+import com.example.eventos.credential.CredentialUrl;
+import com.example.eventos.model.ResultsBean;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    private final String JSON_URL = "http://5f5a8f24d44d640016169133.mockapi.io/api/events";
-    private JsonArrayRequest request;
-    private RequestQueue requestQueue;
-    private List<Eventos> eventosList;
+    private List<ResultsBean> movieList;
     private RecyclerView recyclerView;
 
     @Override
@@ -39,77 +37,79 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        eventosList = new ArrayList<>();
+        movieList = new ArrayList<>();
         recyclerView = findViewById(R.id.recyclerV);
         jsonrequest();
     }
 
     private void jsonrequest() {
+        /*
+        Request para pegar valores do json da api, e montar o objeto movies
+         */
 
-        request = new JsonArrayRequest(JSON_URL, new Response.Listener<JSONArray>() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, CredentialUrl.JSON_URL, null, new Response.Listener<JSONObject>() {
             @Override
-            public void onResponse(JSONArray response) {
+            public void onResponse(JSONObject response) {
+                JSONArray jsonArray = null;
 
-                JSONObject jsonObject = null;
+                try {
+                    jsonArray = response.getJSONArray("results");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
-                for (int i = 0; i < response.length(); i++) {
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    ResultsBean moviesInformation = new ResultsBean();
 
                     try {
-                        jsonObject = response.getJSONObject(i);
-                        Eventos eventos = new Eventos();
 
-                        eventos.setDescription(jsonObject.getString("description"));
-                        eventos.setTitle(jsonObject.getString("title"));
-                        eventos.setPrice(jsonObject.getString("price"));
-                        eventos.setImage(jsonObject.getString("image"));
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                        //pegando valores do json PESSOA
-                        try {
-                            eventos.setPeople(getPeopleJsonValues(jsonObject, eventos));
-                        } catch (Exception e) {
-                            Log.e("TAG", e.getMessage());
+                        moviesInformation.setVoteAverage(jsonObject.getString("vote_average"));
+                        moviesInformation.setPopularity(jsonObject.getDouble("popularity"));
+                        moviesInformation.setOverview(jsonObject.getString("overview"));
+                        moviesInformation.setReleaseDate(jsonObject.getString("release_date"));
+                        moviesInformation.setOriginalTitle(jsonObject.getString("original_title"));
+                        moviesInformation.setPosterPath(jsonObject.getString("poster_path"));
+                        moviesInformation.setTitle(jsonObject.getString("title"));
+                        moviesInformation.setAdult(jsonObject.getBoolean("adult"));
+                        moviesInformation.setBackdropPath(jsonObject.getString("backdrop_path"));
+                        JSONArray genre_ids = jsonObject.getJSONArray("genre_ids");
+                        for (int j = 0; j < genre_ids.length(); j++) {
+                            //  genre_ids.get(j);
+                           //Caso queria usar os valores de "genre_ids"
                         }
+                        moviesInformation.setId(jsonObject.getInt("id"));
+                        moviesInformation.setVideo(jsonObject.getBoolean("video"));
+                        moviesInformation.setVoteCount(jsonObject.getInt("vote_count"));
 
-                        eventosList.add(eventos);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+
+                    movieList.add(moviesInformation);
                 }
 
-                setuprecyclerview(eventosList);
-
+                setUpRecyclerview(movieList);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(MainActivity.this, "Erro!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Erro!" + error, Toast.LENGTH_SHORT).show();
             }
         });
 
-        requestQueue = Volley.newRequestQueue(MainActivity.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
         requestQueue.add(request);
     }
 
-    private void setuprecyclerview(List<Eventos> eventosList) {
+    private void setUpRecyclerview(List<ResultsBean> moviesList) {
 
-        RecyclerViewAdapter mAdapter = new RecyclerViewAdapter(this, eventosList);
+        RecyclerViewAdapter mAdapter = new RecyclerViewAdapter(this, moviesList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         recyclerView.setAdapter(mAdapter);
     }
 
-    private List<Pessoa> getPeopleJsonValues(JSONObject jsonObject, Eventos eventos) throws JSONException {
-        JSONArray json = jsonObject.getJSONArray("people");
-        List<Pessoa> list = new ArrayList<>();
-        for (int i = 0; i < json.length(); i++) {
-            String name = json.getJSONObject(i).getString("name");
-            String picture = json.getJSONObject(i).getString("picture");
-            int eventId = json.getJSONObject(i).getInt("eventId");
-            int id = json.getJSONObject(i).getInt("id");
 
-            Pessoa people = new Pessoa(picture, name, eventId, id);
-            list.add(people);
-        }
-        return list;
-    }
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Eventos</string>
+    <string name="app_name">Movie</string>
     <string name="service_not_avaliable">service_not_avaliable</string>
     <string name="invalid_lat_long_used">invalid_lat_long_used</string>
     <string name="no_address_found">no_address_found</string>
